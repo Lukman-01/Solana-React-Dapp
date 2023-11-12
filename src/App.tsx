@@ -132,7 +132,7 @@ export default function App() {
         )}
         {provider && walletKey && (
             <div>
-              <p></p>
+              <p>Wallet Address connected is: {walletKey}</p>
               <button
                 style={{
                   fontSize: "16px",
