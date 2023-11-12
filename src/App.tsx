@@ -1,14 +1,18 @@
-// import functionalities
+// Import React and CSS for styling
 import React from 'react';
 import './App.css';
+// Import necessary classes from Solana's web3.js library
 import {
   PublicKey,
   Transaction,
 } from "@solana/web3.js";
+// Import React hooks for state and lifecycle management
 import {useEffect , useState } from "react";
 import './App.css'
 
-// create types
+/**
+ * TypeScript types for encoding options, Phantom wallet events, and request methods.
+ */
 type DisplayEncoding = "utf8" | "hex";
 
 type PhantomEvent = "disconnect" | "connect" | "accountChanged";
@@ -19,11 +23,17 @@ type PhantomRequestMethod =
   | "signAllTransactions"
   | "signMessage";
 
+/**
+ * Interface for options used in the connect method.
+ */
 interface ConnectOpts {
   onlyIfTrusted: boolean;
 }
 
-// create a provider interface (hint: think of this as an object) to store the Phantom Provider
+/**
+ * Interface representing the Phantom provider.
+ * This includes all necessary methods and properties to interact with the Phantom wallet.
+ */
 interface PhantomProvider {
   publicKey: PublicKey | null;
   isConnected: boolean | null;
@@ -40,7 +50,8 @@ interface PhantomProvider {
 }
 
  /**
- * @description gets Phantom provider, if it exists
+ * Function to retrieve the Phantom provider from the global window object.
+ * Returns the provider if available, otherwise returns undefined.
  */
  const getProvider = (): PhantomProvider | undefined => {
   if ("solana" in window) {
@@ -51,17 +62,12 @@ interface PhantomProvider {
 };
 
 export default function App() {
-  // create state variable for the provider
-  const [provider, setProvider] = useState<PhantomProvider | undefined>(
-    undefined
-  );
+  // State variable to store the Phantom provider
+  const [provider, setProvider] = useState<PhantomProvider | undefined>(undefined);
+  // State variable to store the wallet public key
+  const [walletKey, setWalletKey] = useState<String | undefined>(undefined);
 
-	// create state variable for the wallet key
-  const [walletKey, setWalletKey] = useState<String | undefined>(
-  undefined
-  );
-
-  // this is the function that runs whenever the component updates (e.g. render, refresh)
+  // Effect hook to set the Phantom provider on component mount
   useEffect(() => {
 	  const provider = getProvider();
 
