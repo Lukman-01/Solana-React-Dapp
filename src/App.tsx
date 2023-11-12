@@ -104,6 +104,8 @@ export default function App() {
     if (solana) {
       try {
 				// ADD DISCONNECT LOGIC HERE
+        await solana.disconnect();
+        setWalletKey(undefined);
       } catch (err) {
           console.log(err);
       }
@@ -130,7 +132,7 @@ export default function App() {
         )}
         {provider && walletKey && (
             <div>
-              <p>{/*FOR WALLET ADDRESS*/}</p>
+              <p></p>
               <button
                 style={{
                   fontSize: "16px",
